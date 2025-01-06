@@ -16,7 +16,7 @@ const Services = () => (
     {/* <HomePage1 /> */}
     <ImageCarousel />
     <br />
-    <Donate />
+    {/* <Donate /> */}
     <Buttons />
     <br />
     <br />
