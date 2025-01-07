@@ -250,7 +250,7 @@ const BedsRequest = () => {
       {showBedForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

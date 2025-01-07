@@ -12,7 +12,7 @@ const ServicesPage = () => (
   <div>
     <Header />
     <br />
-    <Donate />
+    {/* <Donate /> */}
     <Buttons />
     <br />
     <br />

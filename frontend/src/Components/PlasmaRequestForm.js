@@ -187,7 +187,7 @@ const PlasmaRequestForm = () => {
       {showPlasmaReqForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

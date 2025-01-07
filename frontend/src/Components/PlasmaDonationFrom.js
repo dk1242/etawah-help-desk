@@ -233,7 +233,7 @@ const PlasmaDonationForm = () => {
       {showPlasmaDonForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

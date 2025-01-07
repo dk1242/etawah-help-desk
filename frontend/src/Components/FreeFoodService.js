@@ -177,7 +177,7 @@ const FreeFood = () => {
       {showFoodForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

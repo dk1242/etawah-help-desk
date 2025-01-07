@@ -109,7 +109,7 @@ const SignUp = () => {
       </Container>
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
       <br />
       <br />
     </div>

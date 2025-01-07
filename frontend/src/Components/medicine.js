@@ -227,7 +227,7 @@ const Medicine = () => {
       {showMedForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

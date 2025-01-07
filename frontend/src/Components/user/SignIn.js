@@ -107,7 +107,7 @@ const SignIn = () => {
       </Container>
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
       <br />
       <br />
     </div>

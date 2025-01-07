@@ -201,7 +201,7 @@ const AnimalCare = () => {
       {showError()}
       {showSuccess()}
       {showAnimalForm()}
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

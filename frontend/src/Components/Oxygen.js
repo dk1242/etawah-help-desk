@@ -212,7 +212,7 @@ const Oxygen = () => {
         </Form>
       </Container>
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
   const showOxygenForm = () => <div>{OxygenForm()}</div>;

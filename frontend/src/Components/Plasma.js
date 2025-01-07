@@ -53,7 +53,7 @@ const Plasma = () => {
         </Row>
       </Container>
       <br />
-      <Donate />
+      {/* <Donate /> */}
       <br />
     </div>
   );

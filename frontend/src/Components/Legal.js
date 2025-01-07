@@ -194,7 +194,7 @@ const FreeLegal = () => {
       {showFoodForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

@@ -131,7 +131,7 @@ const AdminDashboard = () => {
       {showUser()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

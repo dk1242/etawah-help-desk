@@ -48,7 +48,7 @@ const Blood = () => {
         </Row>
       </Container>
       <br />
-      <Donate />
+      {/* <Donate /> */}
       <br />
     </div>
   );

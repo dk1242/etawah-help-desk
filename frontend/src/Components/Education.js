@@ -220,7 +220,7 @@ const EduHelp = () => {
       {showFoodForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

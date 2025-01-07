@@ -35,7 +35,7 @@ const UserDashboard = () => {
       <br />
       <br />
       {showUser()}
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

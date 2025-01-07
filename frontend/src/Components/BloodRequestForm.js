@@ -192,7 +192,7 @@ const BloodRequestForm = () => {
       {showBloodReqForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

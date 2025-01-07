@@ -132,7 +132,7 @@ const VaccinationCenter = () => {
       </Container>
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

@@ -240,7 +240,7 @@ const Events = () => {
       </Container>
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

@@ -371,7 +371,7 @@ const VolunteerForm = () => {
       {showVolunteerForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

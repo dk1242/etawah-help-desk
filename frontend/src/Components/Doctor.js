@@ -219,7 +219,7 @@ const Doctor = () => {
       {showDocForm()}
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };

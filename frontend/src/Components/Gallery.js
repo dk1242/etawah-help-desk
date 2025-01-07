@@ -103,7 +103,7 @@ const Gallery = () => {
       </Container>
       <br />
       <br />
-      <Donate />
+      {/* <Donate /> */}
     </div>
   );
 };
