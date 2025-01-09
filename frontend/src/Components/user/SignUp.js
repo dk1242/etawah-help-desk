@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { signUp } from "../auth";
-import Donate from "../Donation";
 import Header from "../Header";
 
 const SignUp = () => {

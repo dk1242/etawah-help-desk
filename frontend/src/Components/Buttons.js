@@ -18,7 +18,7 @@ const Buttons = () => {
   return (
     <div>
       <Container
-        style={{ marginTop: "25px", textAlign: "center", alignItems: "center" }}
+        style={{ marginTop: "0px", textAlign: "center", alignItems: "center" }}
         className="shadow-sm p-3 mb-5 bg-white rounded"
       >
         <h1>Find Help in Etawah</h1>

@@ -9,13 +9,14 @@ import JoinUs from "./JoinUs";
 import ProblemForm from "./ProblemForm";
 import Event from "./Event";
 import ImageCarousel from "./ImageCarousel";
+import StaticImgCarousel from "./StaticImgCarousel";
 
 const Services = () => (
   <div>
     <Header />
     {/* <HomePage1 /> */}
-    <ImageCarousel />
-    <br />
+    <StaticImgCarousel />
+    {/* <br /> */}
     {/* <Donate /> */}
     <Buttons />
     <br />
