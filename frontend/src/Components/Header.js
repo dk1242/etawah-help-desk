@@ -2,11 +2,15 @@ import React from "react";
 import { Container, Button, Row, Col, Navbar, Nav } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import { isAuthenticated, signout } from "./auth";
+import "../assets/header.css";
 
 const Header = () => (
   <header className="header px-3">
     <Link to="/">
       <h1 className="d-inline-block pt-2">Etawah Help Desk</h1>
+    </Link>
+    <Link to="/certificate">
+      <h4 className="gradient-button d-inline-block pt-2">Get Certificate</h4>
     </Link>
     <div
       className="float-right"

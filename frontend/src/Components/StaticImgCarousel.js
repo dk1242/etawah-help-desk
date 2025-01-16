@@ -74,7 +74,7 @@ const StaticImgCarousel = () => {
                       style={{
                         color: "black",
                         backgroundColor: "white",
-                        opacity: "0.9",
+                        opacity: "0.7",
                         cursor: "pointer",
                       }}
                     >

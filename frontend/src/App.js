@@ -49,6 +49,7 @@ import Events from "./Components/Event";
 import UpdateEventForm from "./Components/admin/UpdateEventForm";
 import UpdateImageForm from "./Components/admin/UpdateImageForm";
 import StaticEvents from "./Components/StaticEvents";
+import GetCertificate from "./Components/GetCertificate";
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
         <Route path="/updateevent" component={UpdateEventForm} />
         <Route path="/updateimage" component={UpdateImageForm} />
         <Route path="/events" component={StaticEvents} />
+        <Route path="/certificate" component={GetCertificate} />
         <Route path="*" component={NoMatch} />
       </Switch>
 
