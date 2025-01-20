@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import certificate_template from "../assets/certi_template.jpg";
-import JoinUs from "./JoinUs";
+// import JoinUs from "./JoinUs";
 
 const GetCertificate = () => {
   const canvasRef = useRef(null);
@@ -61,6 +61,10 @@ const GetCertificate = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
+    const container = containerRef.current;
+    const containerWidth = container.offsetWidth;
+    const scaledWidth = Math.min(containerWidth, 4419);
+
     const certificateImage = new Image();
     certificateImage.src = certificate_template; // Update with the correct path to your template
 
@@ -84,19 +88,25 @@ const GetCertificate = () => {
 
       // Add the name to the certificate
       const fontSize = Math.round(canvas.width / devicePixelRatio / 20);
-      ctx.font = `${fontSize}px MrDafoe`;
+      ctx.font = `${fontSize}px Arial`;
       ctx.fillStyle = "#000";
-      ctx.textAlign = "center";
+      // ctx.textAlign = "center";
 
+      const textWidth = ctx.measureText(name).width;
+
+      // Center the text dynamically
+      const xPosition = (scaledWidth - textWidth / 4) / 2;
       const textYPosition =
         canvas.height / (2 * devicePixelRatio) + fontSize / 3;
 
       ctx.fillText(
         name,
-        canvas.width / (2 * devicePixelRatio) + name.length * 10,
+        // canvas.width / (2 * devicePixelRatio) + name.length * 10,
+        xPosition,
         textYPosition
       ); // Adjust coordinates as needed
-
+      ctx.resetTransform();
+      
       setIsGenerated(true);
     };
   };
