@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { Button, Col, Container, Form } from "react-bootstrap";
-import certificate_template from "../assets/certi_template.png";
+import certificate_template from "../assets/certi_template.jpg";
 import JoinUs from "./JoinUs";
 
 const GetCertificate = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [name, setName] = useState("");
+  const [token, setToken] = useState("");
   const [isGenerated, setIsGenerated] = useState(false);
 
   useEffect(() => {
@@ -17,10 +18,22 @@ const GetCertificate = () => {
       const container = containerRef.current;
 
       if (canvas && container) {
-        const { width } = container.getBoundingClientRect();
-        canvas.width = width; // Set canvas resolution width
-        canvas.height = (width * 700) / 1000; // Maintain the aspect ratio of the template
+        const containerWidth = container.offsetWidth; // Width of the parent container
+        const imageWidth = 6250; // Original image width
+        const imageHeight = 4419; // Original image height
+        const aspectRatio = imageHeight / imageWidth;
 
+        const scaledWidth = Math.min(containerWidth, imageWidth); // Limit width to container or original image size
+        const scaledHeight = scaledWidth * aspectRatio;
+
+        const devicePixelRatio = window.devicePixelRatio || 1;
+
+        // Set internal resolution (scaled by devicePixelRatio)
+        canvas.width = scaledWidth * devicePixelRatio;
+        canvas.height = scaledHeight * devicePixelRatio;
+
+        canvas.style.width = `${scaledWidth}px`;
+        canvas.style.height = `${scaledHeight}px`;
         // setIsGenerated(true);
       }
     };
@@ -40,6 +53,10 @@ const GetCertificate = () => {
       alert("Please enter a name");
       return;
     }
+    if (token !== "9754") {
+      alert("Invalid Token");
+      return;
+    }
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -48,18 +65,37 @@ const GetCertificate = () => {
     certificateImage.src = certificate_template; // Update with the correct path to your template
 
     certificateImage.onload = () => {
+      const devicePixelRatio = window.devicePixelRatio || 1;
+
+      // Scale drawing to match device pixel ratio
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw the certificate template
-      ctx.drawImage(certificateImage, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(
+        certificateImage,
+        0,
+        0,
+        canvas.width / devicePixelRatio,
+        canvas.height / devicePixelRatio
+      );
 
       // Add the name to the certificate
-      const fontSize = Math.round(canvas.width / 15);
+      const fontSize = Math.round(canvas.width / devicePixelRatio / 20);
       ctx.font = `${fontSize}px MrDafoe`;
       ctx.fillStyle = "#000";
       ctx.textAlign = "center";
-      ctx.fillText(name, canvas.width / 2, canvas.height / 2 + 10); // Adjust coordinates as needed
+
+      const textYPosition =
+        canvas.height / (2 * devicePixelRatio) + fontSize / 3;
+
+      ctx.fillText(
+        name,
+        canvas.width / (2 * devicePixelRatio) + name.length * 10,
+        textYPosition
+      ); // Adjust coordinates as needed
 
       setIsGenerated(true);
     };
@@ -68,16 +104,30 @@ const GetCertificate = () => {
   // Function to download the certificate
   const downloadCertificate = () => {
     const canvas = canvasRef.current;
-    const link = document.createElement("a");
-    link.download = "certificate.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+    // const link = document.createElement("a");
+    // link.download = "certificate.jpg";
+    // link.href = canvas.toDataURL("image/jpg", 1.0);
+    // link.click();
+    canvas.toBlob(
+      (blob) => {
+        const link = document.createElement("a");
+        link.download = "certificate.png"; // or "certificate.jpg"
+        link.href = URL.createObjectURL(blob);
+        link.click();
+      },
+      "image/png",
+      1.0
+    );
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setName(e.target.value);
   };
+
+  const handleToken = (e) => {
+    setToken(e.target.value);
+  };
+
   return (
     <div>
       <Header />
@@ -98,6 +148,19 @@ const GetCertificate = () => {
                   value={name}
                   placeholder="Enter Name"
                   onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col} lg={4}>
+                <h5>
+                  <Form.Label>Token</Form.Label>
+                </h5>
+                <Form.Control
+                  required
+                  type="text"
+                  name="token"
+                  value={token}
+                  placeholder="Enter Token"
+                  onChange={handleToken}
                 />
               </Form.Group>
             </Form.Row>
