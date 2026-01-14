@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { Button, Col, Container, Form } from "react-bootstrap";
-import certificate_template from "../assets/certi_template.jpg";
+import certificate_template from "../assets/certi_template.png";
 // import JoinUs from "./JoinUs";
 
 const GetCertificate = () => {
@@ -61,73 +61,74 @@ const GetCertificate = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    const container = containerRef.current;
-    const containerWidth = container.offsetWidth;
-    const scaledWidth = Math.min(containerWidth, 4419);
-
     const certificateImage = new Image();
-    certificateImage.src = certificate_template; // Update with the correct path to your template
+    certificateImage.src = certificate_template;
 
     certificateImage.onload = () => {
-      const devicePixelRatio = window.devicePixelRatio || 1;
-
-      // Scale drawing to match device pixel ratio
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the certificate template
+      // Draw the certificate template at full canvas size
       ctx.drawImage(
         certificateImage,
         0,
         0,
-        canvas.width / devicePixelRatio,
-        canvas.height / devicePixelRatio
+        canvas.width,
+        canvas.height
       );
 
       // Add the name to the certificate
-      const fontSize = Math.round(canvas.width / devicePixelRatio / 20);
-      ctx.font = `${fontSize}px Arial`;
+      const fontSize = Math.round(canvas.width / 22);
+      ctx.font = `${fontSize}px Arial Bold`;
       ctx.fillStyle = "#000";
-      // ctx.textAlign = "center";
+      ctx.textAlign = "center";
 
-      const textWidth = ctx.measureText(name).width;
+      // Shifted left by 7% of canvas width for gold line alignment
+      const xOffset = canvas.width * 0.012;
+      const xPosition = canvas.width / 2 - xOffset;
+      const yPosition = canvas.height * 0.46785;
 
-      // Center the text dynamically
-      const xPosition = (scaledWidth - textWidth / 4) / 2;
-      const textYPosition =
-        canvas.height / (2 * devicePixelRatio) + fontSize / 3;
-
-      ctx.fillText(
-        name,
-        // canvas.width / (2 * devicePixelRatio) + name.length * 10,
-        xPosition,
-        textYPosition
-      ); // Adjust coordinates as needed
-      ctx.resetTransform();
-      
+      ctx.fillText(name, xPosition, yPosition);
       setIsGenerated(true);
     };
   };
 
   // Function to download the certificate
   const downloadCertificate = () => {
-    const canvas = canvasRef.current;
-    // const link = document.createElement("a");
-    // link.download = "certificate.jpg";
-    // link.href = canvas.toDataURL("image/jpg", 1.0);
-    // link.click();
-    canvas.toBlob(
-      (blob) => {
-        const link = document.createElement("a");
-        link.download = "certificate.png"; // or "certificate.jpg"
-        link.href = URL.createObjectURL(blob);
-        link.click();
-      },
-      "image/png",
-      1.0
-    );
+    // Create a temporary full-resolution canvas for download
+    const originalWidth = 6250;
+    const originalHeight = 4419;
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = originalWidth;
+    tempCanvas.height = originalHeight;
+    const tempCtx = tempCanvas.getContext("2d");
+
+    // Draw the certificate template
+    const certificateImage = new Image();
+    certificateImage.src = certificate_template;
+    certificateImage.onload = () => {
+      tempCtx.drawImage(certificateImage, 0, 0, originalWidth, originalHeight);
+      // Add the name
+      const fontSize = Math.round(originalWidth / 22);
+      tempCtx.font = `${fontSize}px Arial Bold`;
+      tempCtx.fillStyle = "#000";
+      tempCtx.textAlign = "center";
+      const xOffset = originalWidth * 0.012;
+      const xPosition = originalWidth / 2 - xOffset;
+      const yPosition = originalHeight * 0.46785;
+      tempCtx.fillText(name, xPosition, yPosition);
+
+      tempCanvas.toBlob(
+        (blob) => {
+          const link = document.createElement("a");
+          link.download = "certificate.png";
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        },
+        "image/png",
+        1.0
+      );
+    };
   };
 
   const handleChange = (e) => {
@@ -177,7 +178,7 @@ const GetCertificate = () => {
             <Button
               className="m-auto d-block px-5"
               variant="primary"
-              type="sumbit"
+              type="submit"
             >
               Get Certificate
             </Button>
